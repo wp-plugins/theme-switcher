@@ -4,7 +4,7 @@
 Plugin Name: Theme Switcher
 Plugin URI: http://wordpress.org/
 Description: Allow your readers to switch themes.
-Version: 0.2
+Version: 0.3
 Author: Ryan Boren
 Author URI: http://boren.nu/
 
@@ -35,8 +35,13 @@ function ts_set_theme_cookie() {
 							$expire,
 							COOKIEPATH
 							);
-		
-		header("Location: ".get_settings('home').'/');
+
+		$redirect = get_settings('home').'/';
+
+		if (function_exists('wp_redirect'))
+			wp_redirect($redirect);
+		else
+			header("Location: ". $redirect);
 	}
 }
 
@@ -61,6 +66,10 @@ function ts_get_template($template) {
 		return $template;
 	}
 
+	// Don't let people peek at unpublished themes.
+	if (isset($theme['Status']) && $theme['Status'] != 'publish')
+		return $template;		
+
 	return $theme['Template'];
 }
 
@@ -72,6 +81,10 @@ function ts_get_stylesheet($stylesheet) {
 	}
 
 	$theme = get_theme($theme);
+
+	// Don't let people peek at unpublished themes.
+	if (isset($theme['Status']) && $theme['Status'] != 'publish')
+		return $template;		
 	
 	if (empty($theme)) {
 		return $stylesheet;
@@ -96,6 +109,9 @@ function wp_theme_switcher($style = "text") {
 				. '	<select name="themeswitcher" onchange="location.href=\''.get_settings('home').'/index.php?wptheme=\' + this.options[this.selectedIndex].value;">'."\n"	;
 
 			foreach ($theme_names as $theme_name) {
+				// Skip unpublished themes.
+				if (isset($themes[$theme_name]['Status']) && $themes[$theme_name]['Status'] != 'publish')
+					continue;
 					
 				if ((!empty($_COOKIE["wptheme" . COOKIEHASH]) && $_COOKIE["wptheme" . COOKIEHASH] == $theme_name)
 						|| (empty($_COOKIE["wptheme" . COOKIEHASH]) && ($theme_name == $default_theme))) {
@@ -115,6 +131,10 @@ function wp_theme_switcher($style = "text") {
 				;
 		}	else {
 			foreach ($theme_names as $theme_name) {
+				// Skip unpublished themes.
+				if (isset($themes[$theme_name]['Status']) && $themes[$theme_name]['Status'] != 'publish')
+					continue;
+
 				$display = htmlspecialchars($theme_name);
 				
 				if ((!empty($_COOKIE["wptheme" . COOKIEHASH]) && $_COOKIE["wptheme" . COOKIEHASH] == $theme_name)
