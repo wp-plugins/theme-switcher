@@ -4,7 +4,7 @@
 Plugin Name: Theme Switcher
 Plugin URI: http://wordpress.org/
 Description: Allow your readers to switch themes.
-Version: 0.3
+Version: 0.5
 Author: Ryan Boren
 Author URI: http://boren.nu/
 
@@ -42,6 +42,8 @@ function ts_set_theme_cookie() {
 			wp_redirect($redirect);
 		else
 			header("Location: ". $redirect);
+
+		exit;
 	}
 }
 
