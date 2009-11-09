@@ -16,7 +16,7 @@ Allow users to switch which theme they use on your WordPress, WordPress MU, or B
 1. Download and extract the `theme-switcher` plugin file.
 1. Upload the `theme-switcher` directory to the `/wp-content/plugins/` directory.
 1. Activate the plugin under the 'Plugins' menu in the WordPress admin.
-1. Add the "Theme Switcher" widget to one of your widgetized sidebars, or call wp_theme_switcher() directly.
+1. Add the "Theme Switcher" widget to one of your widgetized sidebars, or call `wp_theme_switcher()` directly.
 
 == Frequently Asked Questions ==
 
