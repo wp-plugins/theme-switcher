@@ -2,11 +2,11 @@
 
 /*
 Plugin Name: Theme Switcher
-Plugin URI: http://wordpress.org/
+Plugin URI: http://wordpress.org/extend/plugins/theme-switcher/
 Description: Allow your readers to switch themes.
 Version: 0.5
 Author: Ryan Boren
-Author URI: http://boren.nu/
+Author URI: http://ryan.boren.me/
 
 Adapted from Alex King's style switcher.
 http://www.alexking.org/software/wordpress/
