@@ -38,10 +38,11 @@ class ThemeSwitcherWidget extends WP_Widget {
 	function widget($args, $instance)
 	{
 		global $theme_switcher;
+		$type = isset( $instance['displaytype'] ) ? $instance['displaytype'] : '';
 		$title = empty( $instance['title'] ) ? __('Theme Switcher', 'theme-switcher') : $instance['title'];
 		echo $args['before_widget'];
 		echo $args['before_title'] . $title . $args['after_title'];
-		echo $theme_switcher->theme_switcher_markup($instance['displaytype'], $instance);
+		echo $theme_switcher->theme_switcher_markup($type, $instance);
 		echo $args['after_widget'];
 	}
 
@@ -52,12 +53,13 @@ class ThemeSwitcherWidget extends WP_Widget {
 
 	function form($instance) 
 	{
-		$type = $instance['displaytype'];
+		$type = isset( $instance['displaytype'] ) ? $instance['displaytype'] : '';
+		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>">
 				<span><?php _e('Title:', 'theme-switcher'); ?></span>
-				<input type="text" name="<?php echo $this->get_field_name('title'); ?>" id="<?php echo $this->get_field_id('title'); ?>" value="<?php echo esc_attr($instance['title']); ?>" />
+				<input type="text" name="<?php echo $this->get_field_name('title'); ?>" id="<?php echo $this->get_field_id('title'); ?>" value="<?php echo esc_attr($title); ?>" />
 			</label>
 		</p>
 			
