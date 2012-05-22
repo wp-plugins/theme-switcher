@@ -172,7 +172,7 @@ class ThemeSwitcher {
 				}
 			}
 
-			$default_theme = get_current_theme();
+			$default_theme = function_exists( 'wp_get_theme' ) ? wp_get_theme() : get_current_theme();
 
 			$theme_data = array();
 			foreach ((array) $themes as $theme_name => $data) {
